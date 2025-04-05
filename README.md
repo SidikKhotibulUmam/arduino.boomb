@@ -1,4 +1,26 @@
-# arduino.boomb
+PROJEK MEMBUAT BOM DETONATOR DENGAN ARDUINO
+
+Cara Kerja:
+1.Monitor akan menghitung mundur dari 10-1
+2.Ketika angka sudah 0, maka monitor akan menampilkan BOOOOMM!
+3.LED akan menyala, menandakan bom meledak
+
+Komponen:
+1.Arduino
+2.LCD I2C
+3.Breadboard
+4.LED
+
+Skematik:
+1.PIN GND  arduino dipasangkan ke pin (-) breadboard
+2.PIN 5v arduino dipasangkan ke pin (+) breadboard
+3.PIN GND dan VCC LCD I2C dipasangkan ke pin (-) dan (+) breadboard
+4.PIN SDA dan SCL LCD I2C dipasangkan ke pin SDA dan SCL arduino
+5.Kaki negatif LED dipasangkan ke pin (-) breadboard
+6.Kaki positif LED dipasangkan dahulu dengan transistor sebelum dipasangkan ke pin (+) breadboard
+
+Kode:
+//inisialisasi library 
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
@@ -7,7 +29,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 //inisialisasi LED dengan nomor pin
 int red = 2;
 int blue = 3;
-//setup pengaturan pin dan lcd
+//setup pengaturan led dan lcd
 void setup() {
   pinMode(red, OUTPUT);
   pinMode(blue, OUTPUT);
@@ -17,10 +39,10 @@ void setup() {
 
 }
 void loop() {
-  lcd.setCursor(0,0);
+  lcd.setCursor(0,0); //posisi baris pertama,kolom pertama (atas paling pojok kiri)
   lcd.print("Hitungan mundur");
   delay(2000);
-  lcd.clear();
+  lcd.clear(); //menghapus tulisan sebelumnya agar berganti ke tulisan berikutnya
   digitalWrite(red, LOW);
   digitalWrite(blue, LOW);
   //looping untuk menghitung mundur
